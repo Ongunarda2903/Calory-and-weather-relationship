@@ -1,7 +1,7 @@
 # Weather & Calorie Burn Analysis
 
 ## 📌 Project Motivation
-In this project, I will analyze weather and try to show the relationship between **weather conditions** and **calories burned**.  
+In this project, I will analyze weather and try to show the relationship between **weather conditions** and **calories I burned**.  
 I believe there is a correlation between weather and calorie burn.  
 I will analyze:
 - **Rainfall**
