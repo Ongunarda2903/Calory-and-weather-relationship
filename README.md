@@ -7,7 +7,7 @@ I will analyze:
 - **Rainfall**
 - **Temperature**
 - **Wind speed**  
-My aim is to predict how many calories I will burn based on weather conditions.
+
 
 ---
 
@@ -17,7 +17,7 @@ My aim is to predict how many calories I will burn based on weather conditions.
 - **🌡️ Temperature:** It will show the highest temperature of the day. **Data Source:** [OpenWeather API](https://openweathermap.org).
 - **🌬️ Wind Speed:** I will collect wind speed data. **Data Source:** [OpenWeather API](https://openweathermap.org).
 - **🔥 Calories Burned:** I will collect daily calorie burn data using **[My Phone Apple Health]**.  
-  - This will be recorded on a day-by-day basis from exercise and daily activities.
+  - Calories I burned is related from exercise and daily activities.
 
 ---
 
