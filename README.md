@@ -142,3 +142,21 @@ By the conclusion of the EDA phase, a clean, outlier-free, and merged dataset, f
 from scipy.stats import pearsonr
 
 r, p_value = pearsonr(df_clean["AvgWindSpeed"], df_clean["CaloriesBurned"])
+
+## 4. Hypothesis Testing Results
+
+**Results:**
+
+- **Sample Size (n):** 197
+- **Pearson’s r:** ≈ 0.025
+- **p-value:** ≈ 0.73
+
+**Interpretation:**
+
+The calculated Pearson correlation coefficient ($r \approx 0.025$) is very close to zero, indicating no detectable linear trend in the data.
+
+The p-value ($\approx 0.73$) is considerably higher than the commonly used significance level of $\alpha = 0.05$. This indicates that there is a high probability of observing such a weak correlation (or even a stronger one) if there were truly no correlation in the underlying population. Therefore, we fail to reject the null hypothesis (H₀).
+
+**Conclusion:**
+
+There is no statistically significant evidence of a linear relationship between daily average wind speed and calories burned within the most recent 200-day window of the analyzed data.
