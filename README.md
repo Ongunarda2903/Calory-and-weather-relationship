@@ -53,22 +53,57 @@ I gathered two primary data sources—Apple Health export and OpenWeather API—
    ```python
    from google.colab import files
    uploaded = files.upload()  # Upload the Apple Health XML file
-## Data Collecting
 
-I used my apple heath data and OpenWeather API to collect weather data.
 
-- **Collecting Apple Heath Data**:  
-  I download my apple heath data as xml format to my computer from my phone, then I used  
-  ```python
-  uploaded = files.upload()
-to upload it to my Google Colab.
 
-Collecting Data from OpenWeather API:
-For taking the hourly weather data for last 5 year in Tuzla, I used OpenWeather API. It gave me a CSV format, and I used
+
+## 1. Data Collection
+
+I gathered two primary data sources—Apple Health export and OpenWeather API—using Google Colab to upload and process the raw files.
+
+### 1.1 Apple Health Data  
+1. **Export**  
+   - On my iPhone, opened the Health app and exported my “Active Energy Burned” records as an XML file.  
+2. **Upload to Colab**  
+   ```python
+   from google.colab import files
+   uploaded = files.upload()  # Upload the Apple Health XML file
+Parse & Save
+
+Parsed the XML with xml.etree.ElementTree, extracted daily calories, and built a DataFrame with columns Date and CaloriesBurned.
+
+Saved to calories.csv:
 
 python
 Kopyala
 Düzenle
-uploaded = files.upload()
-to upload it to my Google Colab.
+df_cal.to_csv("calories.csv", index=False)
+1.2 OpenWeather API Data
+Fetch
 
+Queried the OpenWeather “One Call” API for hourly weather in Tuzla covering the last 5 years.
+
+Received the response as a CSV file.
+
+Upload to Colab
+
+python
+Kopyala
+Düzenle
+uploaded = files.upload()  # Upload the OpenWeather CSV file
+Process & Save
+
+Loaded the CSV into pandas, converted UNIX timestamps to dates, and aggregated to daily metrics:
+
+AvgTemp (mean of temp)
+
+AvgWindSpeed (mean of wind_speed)
+
+TotalRain (sum of rain_1h)
+
+Saved the result to daily_weather.csv:
+
+python
+Kopyala
+Düzenle
+daily_summary.to_csv("daily_weather.csv", index=False)
