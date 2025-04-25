@@ -148,7 +148,7 @@ r, p_value = pearsonr(df_clean["AvgWindSpeed"], df_clean["CaloriesBurned"])
 **Results:**
 
 - **Sample Size (n):** 197
-- **Pearson’s r:** ≈ 0.025
+- **Pearson's r:** ≈ 0.025
 - **p-value:** ≈ 0.73
 
 **Interpretation:**
@@ -160,4 +160,3 @@ The p-value ($\approx 0.73$) is considerably higher than the commonly used signi
 **Conclusion:**
 
 There is no statistically significant evidence of a linear relationship between daily average wind speed and calories burned within the most recent 200-day window of the analyzed data.
-
