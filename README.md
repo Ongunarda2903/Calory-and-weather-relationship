@@ -144,7 +144,7 @@ from scipy.stats import pearsonr
 r, p_value = pearsonr(df_clean["AvgWindSpeed"], df_clean["CaloriesBurned"])
 
 ## 4. Hypothesis Testing Results
-
+```
 **Results:**
 
 - **Sample Size (n):** 197
