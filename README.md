@@ -160,3 +160,55 @@ The p-value ($\approx 0.73$) is considerably higher than the commonly used signi
 **Conclusion:**
 
 There is no statistically significant evidence of a linear relationship between daily average wind speed and calories burned within the most recent 200-day window of the analyzed data.
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import t
+
+# --- Parameters based on the provided image ---
+df = 195  # Degrees of freedom
+t_obs = 0.35
+alpha = 0.05 # Assuming a common alpha level for visualization
+
+# --- Generate t-distribution values ---
+t_values = np.linspace(-3, 3, 400)
+pdf_values = t.pdf(t_values, df)
+
+# --- Calculate p-value (two-tailed) ---
+p_value = 2 * (1 - t.cdf(np.abs(t_obs), df))
+print(f"Calculated p-value: {p_value:.4f}") # For verification
+
+# --- Determine critical t-values for the given alpha ---
+critical_t = t.ppf(1 - alpha/2, df)
+
+# --- Create the plot ---
+plt.figure(figsize=(10, 6))
+plt.plot(t_values, pdf_values, label=f't-distribution (df={df})', color='steelblue')
+
+# --- Shade the p-value region ---
+# For a two-tailed test, shade both tails beyond -abs(t_obs) and abs(t_obs)
+shade_x = np.linspace(-3, -np.abs(t_obs), 100)
+shade_y = t.pdf(shade_x, df)
+plt.fill_between(shade_x, shade_y, color='gray', alpha=0.5)
+
+shade_x_right = np.linspace(np.abs(t_obs), 3, 100)
+shade_y_right = t.pdf(shade_x_right, df)
+plt.fill_between(shade_x_right, shade_y_right, color='gray', alpha=0.5, label='p-value region')
+
+# --- Plot the observed t-statistic ---
+plt.axvline(t_obs, color='red', linestyle='--', label=f't_obs = {t_obs:.2f}')
+
+# --- Add labels and title ---
+plt.xlabel('t value')
+plt.ylabel('Density')
+plt.title('Null Distribution of t-Statistic\n(Shaded Area = p-value)')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.6)
+plt.tight_layout()
+
+# --- Save the plot (optional, for including in GitHub README) ---
+plt.savefig('t_distribution_plot.png')
+
+# --- Display the plot (useful in a Colab or Jupyter environment) ---
+plt.show()
