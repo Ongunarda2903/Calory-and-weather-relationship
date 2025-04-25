@@ -142,9 +142,9 @@ By the conclusion of the EDA phase, a clean, outlier-free, and merged dataset, f
 from scipy.stats import pearsonr
 
 r, p_value = pearsonr(df_clean["AvgWindSpeed"], df_clean["CaloriesBurned"])
-
-## 4. Hypothesis Testing Results
 ```
+## 4. Hypothesis Testing Results
+
 **Results:**
 
 - **Sample Size (n):** 197
