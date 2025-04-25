@@ -42,3 +42,33 @@ I will analyze:
 
 ---
 
+## 1. Data Collection
+
+I gathered two primary data sources—Apple Health export and OpenWeather API—using Google Colab to upload and process the raw files.
+
+### 1.1 Apple Health Data  
+1. **Export**  
+   - On my iPhone, opened the Health app and exported my “Active Energy Burned” records as an XML file.  
+2. **Upload to Colab**  
+   ```python
+   from google.colab import files
+   uploaded = files.upload()  # Upload the Apple Health XML file
+## Data Collecting
+
+I used my apple heath data and OpenWeather API to collect weather data.
+
+- **Collecting Apple Heath Data**:  
+  I download my apple heath data as xml format to my computer from my phone, then I used  
+  ```python
+  uploaded = files.upload()
+to upload it to my Google Colab.
+
+Collecting Data from OpenWeather API:
+For taking the hourly weather data for last 5 year in Tuzla, I used OpenWeather API. It gave me a CSV format, and I used
+
+python
+Kopyala
+Düzenle
+uploaded = files.upload()
+to upload it to my Google Colab.
+
