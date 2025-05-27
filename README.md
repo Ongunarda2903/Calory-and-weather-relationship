@@ -160,3 +160,49 @@ The p-value ($\approx 0.73$) is considerably higher than the commonly used signi
 **Conclusion:**
 
 There is no statistically significant evidence of a linear relationship between daily average wind speed and calories burned within the most recent 200-day window of the analyzed data.
+
+
+
+## ML Part
+
+### 1) Data Extraction & Feature Engineering
+- Loaded the cleaned “last 200 days” dataset (no outliers) plus merged in **humidity** from the 5-year weather archive via API.  
+- Dropped raw **Temperature** & **TotalRain** columns, then created:
+  - **RainPlus1** = `TotalRain + 1` (to avoid zero-multiplication)  
+  - **Temp_x_RainPlus1** = `AvgTemp * RainPlus1`  
+- Applied **log(1 + x)** transform to `Temp_x_RainPlus1` for a more symmetric distribution.  
+- Added binary **RainFlag** = `(TotalRain > 0).astype(int)`  
+- Standardized all X features and kept Y in its original units for RMSE reporting.
+
+### 2) Train / Validation / Test Split
+- **Hold-out**: 80 % train / 20 % test split (random_state=42).  
+- **Inner CV**: 5-fold KFold on the 80 % training data for hyperparameter search & model comparison.
+
+### 3) Models & Hyperparameter Search
+- **Candidates**:
+  - KNeighborsRegressor  
+  - Ridge  
+  - RandomForestRegressor  
+- **Search**: `GridSearchCV` over each model’s key hyper-parameters:
+  - KNN → `n_neighbors`: [1, 3, 5, 7, 9]  
+  - Ridge → `alpha`: [0.01, 0.1, 1, 10, 100]  
+  - RF → `n_estimators`: [50, 100, 200], `max_depth`: [None, 5, 10, 20]  
+- **Scoring**: Neg MSE → RMSE  
+- **Result (CV RMSE)**:  
+ 
+- **KNN** → `best_params={'n_neighbors': 9}`, CV RMSE ≈ **116.6**  
+- **Ridge** → `best_params={'alpha': 100}`, CV RMSE ≈ **111.8**  
+- **RandomForest** → `best_params={'max_depth': 5, 'n_estimators': 200}`, CV RMSE ≈ **118.1**
+
+
+### 4) Final Fit & Hold-out Evaluation
+- **Best model** (lowest CV RMSE): **Ridge** (α = 100).  
+- Re-fit **Ridge** on the full 80 % training set.  
+- Evaluated on the 20 % unseen test set → **Test RMSE: 100.5**  
+
+---
+
+> **Key takeaway:**  
+> By combining thoughtful feature engineering (Temp×Rain interactions, log-transform, humidity), robust outlier filtering, and nested CV hyperparameter tuning, we obtain a stable Ridge model that generalizes to unseen data with ~100 calories RMSE.
+
+
